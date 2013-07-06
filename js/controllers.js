@@ -33,7 +33,6 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
         $scope.to_download = $scope.album.images.filter(function (val) {
             return val.selected;
         });
-        console.log($scope.to_download);
     }, function (old_val, new_val) { return true; });
 
     $scope.download = function () {
@@ -41,7 +40,6 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
             keyboard: false,
             backdrop: false
         });
-        console.log($scope.to_download);
         $scope.downloaded = 0;
         var zip = new JSZip();
         $scope.to_download.forEach(function (image) {
@@ -55,12 +53,9 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
                     $scope.$apply(function ($scope) {
                         $scope.downloaded += 1;
                         $scope.progress = 'progress';
-                        console.log($scope.downloaded, $scope.to_download);
                         if ($scope.downloaded == $scope.to_download.length) {
                             $scope.progress = 'progress active striped';
-                            console.log('zipping');
                             var blob = zip.generate({type: 'blob'});
-                            console.log('done');
                             $scope.progress = 'progress';
                             $scope.dl_link = window.URL.createObjectURL(blob);
                             //location.href = window.URL.createObjectURL(blob);
