@@ -1,52 +1,52 @@
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <form class="form-inline navbar-form">
-                    <a href="#/" class="brand">Imgur Album Downloader</a>
-                    <button class="btn" ng-click="select_all()">
-                        Select All</button>
-                    <button class="btn btn-primary pull-right"
-                        ng-click="download()" ng-disabled="!to_download.length">
-                        Download</button>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <form class="form-inline navbar-form">
+                <a href="#/" class="brand">Imgur Album Downloader</a>
+                <button class="btn" ng-click="select_all()">
+                    Select All</button>
+                <button class="btn btn-primary pull-right"
+                    ng-click="download()" ng-disabled="!to_download.length">
+                    Download</button>
 
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-    <div class="container">
-        {{$location.path()}}
-        <form>
-            <ul id="thumbnails" class="clearfix">
-                <li ng-repeat="image in album.images">
-                    <input type="checkbox" name="{{image.id}}"
-                        id="{{image.id}}" ng-model="image.selected">
-                    <label for="{{image.id}}">
-                        <img src="http://i.imgur.com/{{image.id}}b.jpg">
-                    </label>
-                </li>
-            </ul>
-        </form>
-    </div>
-    <div id="progress-modal" class="modal hide" tabindex="-1"
-        role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"
-                aria-hidden="true" ng-show="dl_link"
-                ng-click="dl_link = ''">&times;</button>
+</div>
+<div class="container">
+    {{$location.path()}}
+    <form>
+        <ul id="thumbnails" class="clearfix">
+            <li ng-repeat="image in album.images">
+                <input type="checkbox" name="{{image.id}}"
+                    id="{{image.id}}" ng-model="image.selected">
+                <label for="{{image.id}}">
+                    <img src="http://i.imgur.com/{{image.id}}b.jpg">
+                </label>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="progress-modal" class="modal hide" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true" ng-show="dl_link"
+            ng-click="dl_link = ''">&times;</button>
 
-            <h3 ng-show="to_download.length != downloaded">Downloading...</h3>
-            <h3 ng-show="!dl_link && to_download.length == downloaded">Zipping...</h3>
-            <h3 ng-show="dl_link">Done</h3>
+        <h3 ng-show="to_download.length != downloaded">Downloading...</h3>
+        <h3 ng-show="!dl_link && to_download.length == downloaded">Zipping...</h3>
+        <h3 ng-show="dl_link">Done</h3>
+    </div>
+    <div class="modal-body">
+        <div ng-show="!dl_link" ng-class="progress">
+            <div class="bar"
+                style="width:
+                {{100*downloaded/to_download.length}}%;"></div>
         </div>
-        <div class="modal-body">
-            <div ng-show="!dl_link" ng-class="progress">
-                <div class="bar"
-                    style="width:
-                    {{100*downloaded/to_download.length}}%;"></div>
-            </div>
-            <div ng-show="dl_link" class="pagination-centered">
-                <a class="btn btn-primary btn-large" href="{{dl_link}}"
-                    download="{{album.title}}.zip">Download</a>
-            </div>
+        <div ng-show="dl_link" class="pagination-centered">
+            <a class="btn btn-primary btn-large" href="{{dl_link}}"
+                download="{{album.title}}.zip">Download</a>
         </div>
     </div>
+</div>
