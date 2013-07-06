@@ -5,8 +5,8 @@ angular.module('imgurDownloader', [])
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'partials/album.html',
-				controller: 'AlbumCtrl'
+				templateUrl: 'partials/landing.html',
+				controller: 'LandingCtrl'
 			})
 			.when('/:albumid', {
 				templateUrl: 'partials/album.html',

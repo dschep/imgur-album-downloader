@@ -70,3 +70,9 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
         });
     };
 }
+
+function LandingCtrl($scope, $location) {
+    $scope.update = function (albumid) {
+        $location.path('/' + $scope.albumid);
+    };
+};
