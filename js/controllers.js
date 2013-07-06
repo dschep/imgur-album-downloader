@@ -21,7 +21,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
     };
 
     $scope.select_all = function () {
-        $scope.album.forEach(function () {
+        $scope.album.images.forEach(function (image) {
             image.selected = true;
         });
     };
