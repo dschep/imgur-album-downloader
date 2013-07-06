@@ -72,6 +72,16 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
 }
 
 function LandingCtrl($scope, $location) {
+    $('#bookmarklet')
+        .attr('href', 'javascript:' +
+              "location.href=location.pathname.replace(/\\/a\\/([^/]*).*/,'" +
+              location.origin + "/#/$1')")
+        .bookmarkletHelperArrow({
+            color: '#85bf25',
+            zindex: 2000,
+            pos: 800,
+            lw: 4
+        });
     $scope.update = function (albumid) {
         $location.path('/' + $scope.albumid);
     };

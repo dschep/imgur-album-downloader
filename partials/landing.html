@@ -1,12 +1,35 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <form class="form-inline navbar-form">
-                <a href="#/" class="brand">Imgur Album Downloader</a>
-                <input type="text" name="albumid" name="albumid"
-                    ng-model="albumid" placeholder="Album ID">
-                <button class="btn" ng-click="update(albumid)">Load</button>
-            </form>
+            <a href="#/" class="brand">Imgur Album Downloader</a>
+        </div>
+    </div>
+</div>
+<div class="container clear-fix">
+    <div class="jumbotron">
+        <h1>Download Imgur Albums!</h1>
+        <div class="row">
+            <div class="span4">
+                <h2>Load an album</h2>
+                <p>Enter the album's ID and start downloading!</p>
+                <form class="form-inline">
+                    <input type="text" name="albumid" name="albumid"
+                        ng-model="albumid" placeholder="Album ID">
+                    <button class="btn" ng-click="update(albumid)">Load</button>
+                </form>
+            </div>
+            <div class="span4">
+                <h2>Some Examples:</h2>
+                <ul>
+                    <li><a href="#/lDRB2">Imgur's Offices</a></li>
+                    <li><a href="#/szz8j">Kerbal Space Station</a></li>
+                </ul>
+            </div>
+            <div class="span4">
+                <h2>Bookmarklet!</h2>
+                <p>Drag this bookmarlet to your bookmarks bar:</p>
+                <a id="bookmarklet" class="btn" href="#">Download Imgur Album</a>
+            </div>
         </div>
     </div>
 </div>
