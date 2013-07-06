@@ -1,23 +1,25 @@
-function AlbumCtrl($scope, $http) {
+function AlbumCtrl($scope, $routeParams, $http, $location) {
     $scope.album = [];
     $scope.album_title = '';
     $scope.to_download = [];
     $scope.downloaded = 0;
     $scope.progress = 'progress';
     $scope.dl_link = '';
+    $scope.albumid = $routeParams.albumid || '';
 
     // Use CORS
     $http.defaults.useXDomain = true;
     delete $http.defaults.headers.common['X-Requested-With'];
+    $http.get(
+            'https://api.imgur.com/3/album/' + $scope.albumid, //i46pk',
+            {headers: {Authorization: 'Client-ID 5dc6065411ee2ab' }}
+            ).success(function(data) {
+                $scope.album = data.data.images;
+                $scope.album_title = data.data.title;
+            });
 
     $scope.update = function (albumid) {
-        $http.get(
-                'https://api.imgur.com/3/album/' + $scope.albumid, //i46pk',
-                {headers: {Authorization: 'Client-ID 5dc6065411ee2ab' }}
-                ).success(function(data) {
-                    $scope.album = data.data.images;
-                    $scope.album_title = data.data.title;
-                });
+        $location.path('/' + $scope.albumid);
     };
 
     $scope.select_all = function () {
@@ -48,33 +50,24 @@ function AlbumCtrl($scope, $http) {
 
             xhr.onreadystatechange = function(e) {
                 if (this.readyState == 4 && this.status == 200) {
-                    var scope = angular.element(document.body).scope();
-                    scope.$apply(function ($scope) {
+                    zip.file(image.id + '.jpg', this.response);
+                    $scope.$apply(function ($scope) {
                         $scope.downloaded += 1;
                         $scope.progress = 'progress';
-                    console.log($scope.downloaded, $scope.to_download.length);
-                    });
-                    zip.file(image.id + '.jpg', this.response);
-                    if ($scope.downloaded == $scope.to_download.length) {
-                        scope.$apply(function ($scope) {
+                        console.log($scope.downloaded, $scope.to_download);
+                        if ($scope.downloaded == $scope.to_download.length) {
                             $scope.progress = 'progress active striped';
-                        });
-                        console.log('zipping');
-                        var blob = zip.generate({type: 'blob'});
-                        console.log('done');
-                        scope.$apply(function ($scope) {
+                            console.log('zipping');
+                            var blob = zip.generate({type: 'blob'});
+                            console.log('done');
                             $scope.progress = 'progress';
                             $scope.dl_link = window.URL.createObjectURL(blob);
                             //location.href = window.URL.createObjectURL(blob);
-                        });
-                        //location.href = "data:application/zip;base64," + content;
-                    }
+                        }
+                    });
                 }
             };
             xhr.send();
         });
     };
 }
-
-
-
