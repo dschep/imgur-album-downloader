@@ -1,6 +1,5 @@
 function AlbumCtrl($scope, $routeParams, $http, $location) {
     $scope.album = [];
-    $scope.album_title = '';
     $scope.to_download = [];
     $scope.downloaded = 0;
     $scope.progress = 'progress';
@@ -14,8 +13,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
             'https://api.imgur.com/3/album/' + $scope.albumid, //i46pk',
             {headers: {Authorization: 'Client-ID 5dc6065411ee2ab' }}
             ).success(function(data) {
-                $scope.album = data.data.images;
-                $scope.album_title = data.data.title;
+                $scope.album = data.data;
             });
 
     $scope.update = function (albumid) {
@@ -29,7 +27,8 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
     };
 
     $scope.$watch('album', function () {
-        $scope.to_download = $scope.album.filter(function (val) {
+        if (!$scope.album.images) return;
+        $scope.to_download = $scope.album.images.filter(function (val) {
             return val.selected;
         });
         console.log($scope.to_download);
