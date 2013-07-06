@@ -11,6 +11,8 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
     delete $http.defaults.headers.common['X-Requested-With'];
     $http.get(
             'https://api.imgur.com/3/album/' + $scope.albumid, //i46pk',
+            // client ids can't really be secured in javascript.
+            // don't be a dick, get your own, they're free.
             {headers: {Authorization: 'Client-ID 5dc6065411ee2ab' }}
             ).success(function(data) {
                 $scope.album = data.data;
