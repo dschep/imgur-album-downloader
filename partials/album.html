@@ -13,10 +13,10 @@
         </div>
     </div>
 </div>
-<div class="container">
-    {{$location.path()}}
+<div id="thumbnails" class="container">
+    <i ng-show="!album.images" class="icon-spinner icon-spin icon-4x"></i>
     <form>
-        <ul id="thumbnails" class="clearfix">
+        <ul class="clearfix">
             <li ng-repeat="image in album.images">
                 <input type="checkbox" name="{{image.id}}"
                     id="{{image.id}}" ng-model="image.selected">

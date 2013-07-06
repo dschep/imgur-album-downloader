@@ -5,7 +5,8 @@
     "angular": "~1.0.7",
     "jquery": "~1.8.3",
     "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
-    "jszip": "~1.0.0"
+    "jszip": "~1.0.0",
+    "font-awesome": "~3.2.1"
   },
   "ignore": [
     "**/.*",
