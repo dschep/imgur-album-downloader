@@ -1,0 +1,36 @@
+# Compiled files
+*.so
+*.o
+*.exe
+*.com
+*.class
+*.dll
+*.pyc
+
+# packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.tar
+*.rar
+*.zip
+*.suo
+*.crx
+*.pem
+
+# Mac specific
+.DS_Store?
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+.AppleDouble
+
+# vim files
+.*.sw*
+
+# Misc
+*.bak
+*.tmp

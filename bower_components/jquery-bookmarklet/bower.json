@@ -1,0 +1,20 @@
+{
+  "author": {
+    "name": "Daniel Schep"
+  },
+  "name": "jquery-bookmarklet",
+  "version": "1.1.0",
+  "main": "./jquery.bookmarklet.js",
+  "dependencies": {
+    "jquery": "latest"
+  },
+  "gitHead": "d4b09b55761894fc306a4039a828d9d91da2e85a",
+  "readme": "# jQuery Bookmarlet Helper\n\nThis is a little plugin to make installing bookmarklets more understandable to ludites.\n\n    $('a.bookmarklet').bookmarklet();\n\n## Options\nAn object can be passed in to customize the appearance of the arrow.\n\nThe options available are color, position and linewidth\n\n    $('a').bookmarklet({color: 'ff0000', position: 300, linewidth: 5})\n",
+  "readmeFilename": "README.md",
+  "_id": "jquery-bookmarklet@1.0.0",
+  "description": "This is a little plugin to make installing bookmarklets more understandable to ludites.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dschep/jQuery-Bookmarklet.git"
+  }
+}

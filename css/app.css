@@ -1,0 +1,88 @@
+.container {
+  width: 960px !important;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  background: black;
+  color: #ddd;
+}
+body > div {
+  height: 100%;
+}
+.jumbotron h1 {
+  font-size: 76px;
+  padding: 150px 0;
+}
+#thumbnails {
+  text-align: center;
+}
+#thumbnails .icon-spinner {
+  padding: 100px;
+}
+#thumbnails ul {
+  margin: 0;
+  padding: 0;
+}
+#thumbnails ul li {
+  list-style: none;
+  float: left;
+}
+#thumbnails ul li input {
+  display: none;
+}
+#thumbnails ul li img {
+  height: 160px;
+  width: 160px;
+}
+#thumbnails ul li label {
+  margin: 0;
+  display: block;
+  height: 160px;
+}
+#thumbnails ul li label:hover {
+  background: white;
+}
+#thumbnails ul li label:hover img {
+  opacity: .75;
+}
+#thumbnails ul li input:checked ~ label {
+  background-image: url(../img/check.png);
+}
+#thumbnails ul li input:checked ~ label img {
+  opacity: .75;
+}
+#thumbnails ul li input:checked ~ label:hover {
+  opacity: .75;
+}
+#progress-modal {
+  color: black;
+}
+#progress-modal modal-body {
+  min-height: 44px;
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+
+  margin: 0 auto -60px;
+}
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 60px;
+}
+#footer {
+  background-color: #111;
+}
+#wrap > .container {
+  padding-top: 60px;
+}
+.container .credit {
+  margin: 20px 0;
+}

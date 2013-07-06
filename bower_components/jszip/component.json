@@ -1,0 +1,14 @@
+{
+  "name": "jszip",
+  "version": "1.0.0",
+  "main": "./jszip.min.js",
+  "gitHead": "7ec5b3045fcebeccfcf97b442db5f95a03df8f2e",
+  "readme": "JSZip for Twitter Bower\n=======================\n\nThis is a repository used to add jszip to the bower components repository.\n\njszip is written by Stuart Knightley and is dual-licensed. The details are in\nLICENSE.markdown\n",
+  "readmeFilename": "README.rst",
+  "_id": "jszip@1.0.0",
+  "description": "JSZip for Twitter Bower =======================",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ravenac95/jszip-bower"
+  }
+}
