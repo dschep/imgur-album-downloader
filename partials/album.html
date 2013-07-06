@@ -1,32 +1,46 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <form class="form-inline navbar-form">
-                <a href="#/" class="brand">Imgur Album Downloader</a>
-                <button class="btn" ng-click="select_all()">
-                    Select All</button>
-                <button class="btn btn-primary pull-right"
-                    ng-click="download()" ng-disabled="!to_download.length">
-                    Download</button>
+<div id="wrap">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <form class="form-inline navbar-form">
+                    <a href="#/" class="brand">Imgur Album Downloader</a>
+                    <button class="btn" ng-click="select_all()">
+                        Select All</button>
+                    <button class="btn btn-primary pull-right"
+                        ng-click="download()" ng-disabled="!to_download.length">
+                        Download</button>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+    <div id="thumbnails" class="container">
+        <i ng-show="!album.images" class="icon-spinner icon-spin icon-4x"></i>
+        <form>
+            <ul class="clearfix">
+                <li ng-repeat="image in album.images">
+                    <input type="checkbox" name="{{image.id}}"
+                        id="{{image.id}}" ng-model="image.selected">
+                    <label for="{{image.id}}">
+                        <img src="http://i.imgur.com/{{image.id}}b.jpg">
+                    </label>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="push"></div>
 </div>
-<div id="thumbnails" class="container">
-    <i ng-show="!album.images" class="icon-spinner icon-spin icon-4x"></i>
-    <form>
-        <ul class="clearfix">
-            <li ng-repeat="image in album.images">
-                <input type="checkbox" name="{{image.id}}"
-                    id="{{image.id}}" ng-model="image.selected">
-                <label for="{{image.id}}">
-                    <img src="http://i.imgur.com/{{image.id}}b.jpg">
-                </label>
-            </li>
-        </ul>
-    </form>
-</div>
+
+<footer id="footer">
+    <div class="container">
+        <p class="muted credit">
+        Built by <a href=http://schep.me/>Daniel Schep</a>.
+        Source on <a href="https://github.com/dschep/imgur-album-downloader">
+            <i class="icon-github"></i></a>
+        </p>
+    </div>
+</footer>
+
 <div id="progress-modal" class="modal hide" tabindex="-1"
     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">

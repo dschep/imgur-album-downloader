@@ -1,10 +1,13 @@
 .container { width: 960px !important; }
 
+html {
+    height: 100%;
+}
 body {
+    height: 100%;
     background: black;
-    padding-top: 60px;
-    padding-bottom: 40px;
     color: #ddd;
+    > div { height: 100%; }
 }
 .jumbotron {
     h1 {
@@ -20,7 +23,7 @@ body {
     }
     ul {
         margin: 0;
-        padding: 41px 0 0 0;
+        padding: 0;
         li {
             input { display: none; }
             list-style: none;
@@ -53,4 +56,29 @@ body {
     modal-body {
         min-height: 44px;
     }
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 60px;
+}
+#footer {
+    background-color: #111;
+}
+
+#wrap > .container {
+    padding-top: 60px;
+}
+.container .credit {
+    margin: 20px 0;
 }
