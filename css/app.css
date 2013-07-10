@@ -17,6 +17,7 @@ body > div {
   padding: 150px 0;
 }
 #thumbnails {
+  padding-top: 60px;
   text-align: center;
 }
 #thumbnails .icon-spinner {
@@ -79,9 +80,6 @@ body > div {
 }
 #footer {
   background-color: #111;
-}
-#wrap > .container {
-  padding-top: 60px;
 }
 .container .credit {
   margin: 20px 0;
