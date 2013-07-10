@@ -1,10 +1,14 @@
-function AlbumCtrl($scope, $routeParams, $http, $location) {
+function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
     $scope.album = [];
     $scope.to_download = [];
     $scope.downloaded = 0;
     $scope.progress = 'progress';
     $scope.dl_link = '';
     $scope.albumid = $routeParams.albumid || '';
+
+    $scope.$on('$viewContentLoaded', function(event) {
+        $window._gaq.push(['_trackPageview', $location.path()]);
+    });
 
     // Use CORS
     $http.defaults.useXDomain = true;
@@ -68,7 +72,11 @@ function AlbumCtrl($scope, $routeParams, $http, $location) {
     };
 }
 
-function LandingCtrl($scope, $location) {
+function LandingCtrl($scope, $location, $window) {
+    $scope.$on('$viewContentLoaded', function(event) {
+        $window._gaq.push(['_trackPageview', $location.path()]);
+    });
+
     $('#bookmarklet')
         .attr('href', 'javascript:' +
               "location.href=location.pathname.replace(/\\/a\\/([^/]*).*/,'" +
