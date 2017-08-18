@@ -48,12 +48,13 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
         var zip = new JSZip();
         $scope.to_download.forEach(function (image) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://i.imgur.com/' + image.id + '.jpg', true);
+            const type = image.type.split('/')[1];
+            xhr.open('GET', `https://i.imgur.com/${image.id}.${type}`, true);
             xhr.responseType = 'arraybuffer';
 
             xhr.onreadystatechange = function(e) {
                 if (this.readyState == 4 && this.status == 200) {
-                    zip.file(image.id + '.jpg', this.response);
+                    zip.file(`${image.id}.${type}`, this.response);
                     $scope.$apply(function ($scope) {
                         $scope.downloaded += 1;
                         $scope.progress = 'progress';
