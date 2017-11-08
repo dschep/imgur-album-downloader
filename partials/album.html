@@ -6,10 +6,13 @@
                     <a href="#/" class="brand">Imgur Album Downloader</a>
                     <button class="btn" ng-click="select_all()">
                         Select All</button>
+                    <div style="margin-left:10px; display:inline-block">
+                        <input id="cbxFileOrder" type="checkbox" ng-model="preserveFileOrder" ng-change="preserveAlbumFileOrder()" /> 
+                        <label for="cbxFileOrder">Preserve Album File Order</label>
+                    </div>
                     <button class="btn btn-primary pull-right"
                         ng-click="download()" ng-disabled="!to_download.length">
                         Download</button>
-
                 </form>
             </div>
         </div>
