@@ -6,7 +6,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
     $scope.dl_link = '';
     $scope.albumid = $routeParams.albumid || '';
 
-    $scope.$on('$viewContentLoaded', function(event) {
+    $scope.$on('$viewContentLoaded', function (event) {
         $window._gaq.push(['_trackPageview', $location.path()]);
     });
 
@@ -14,13 +14,13 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
     $http.defaults.useXDomain = true;
     delete $http.defaults.headers.common['X-Requested-With'];
     $http.get(
-            'https://api.imgur.com/3/album/' + $scope.albumid, //i46pk',
-            // client ids can't really be secured in javascript.
-            // don't be a dick, get your own, they're free.
-            {headers: {Authorization: 'Client-ID 5dc6065411ee2ab' }}
-            ).success(function(data) {
-                $scope.album = data.data;
-            });
+        'https://api.imgur.com/3/album/' + $scope.albumid, //i46pk',
+        // client ids can't really be secured in javascript.
+        // don't be a dick, get your own, they're free.
+        { headers: { Authorization: 'Client-ID 5dc6065411ee2ab' } }
+    ).success(function (data) {
+        $scope.album = data.data;
+    });
 
     $scope.update = function (albumid) {
         $location.path('/' + $scope.albumid);
@@ -45,22 +45,27 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
             backdrop: false
         });
         $scope.downloaded = 0;
+        $scope.fileOrderIndex = 0;
+        var preserveOrder = $scope.preserveFileOrder; //stop mid download checkbox change from screwing up file order
         var zip = new JSZip();
+
         $scope.to_download.forEach(function (image) {
             var xhr = new XMLHttpRequest();
             const type = image.type.split('/')[1];
             xhr.open('GET', `https://i.imgur.com/${image.id}.${type}`, true);
             xhr.responseType = 'arraybuffer';
+            var filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.${type}`
+            $scope.fileOrderIndex += 1;
 
-            xhr.onreadystatechange = function(e) {
+            xhr.onreadystatechange = function (e) {
                 if (this.readyState == 4 && this.status == 200) {
-                    zip.file(`${image.id}.${type}`, this.response);
+                    zip.file(filename, this.response);
                     $scope.$apply(function ($scope) {
                         $scope.downloaded += 1;
                         $scope.progress = 'progress';
                         if ($scope.downloaded == $scope.to_download.length) {
                             $scope.progress = 'progress active striped';
-                            var blob = zip.generate({type: 'blob'});
+                            var blob = zip.generate({ type: 'blob' });
                             $scope.progress = 'progress';
                             $scope.dl_link = window.URL.createObjectURL(blob);
                             //location.href = window.URL.createObjectURL(blob);
@@ -74,14 +79,14 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
 }
 
 function LandingCtrl($scope, $location, $window) {
-    $scope.$on('$viewContentLoaded', function(event) {
+    $scope.$on('$viewContentLoaded', function (event) {
         $window._gaq.push(['_trackPageview', $location.path()]);
     });
 
     $('#bookmarklet')
         .attr('href', 'javascript:' +
-              "location.href=location.pathname.replace(/.*\\/gallery\\//,'" +
-              location + "')")
+        "location.href=location.pathname.replace(/.*\\/gallery\\//,'" +
+        location + "')")
         .bookmarkletHelperArrow({
             color: '#85bf25',
             zindex: 2000,
