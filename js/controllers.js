@@ -47,6 +47,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
         $scope.downloaded = 0;
         $scope.fileOrderIndex = 0;
         var preserveOrder = $scope.preserveFileOrder; //stop mid download checkbox change from screwing up file order
+        var downloadDescription = $scope.downloadDescription; //stop mid download checkbox change from screwing up description download
         var zip = new JSZip();
 
         $scope.to_download.forEach(function (image) {
@@ -57,22 +58,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
             var filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.${type}`
             var meta_filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.txt`;
             $scope.fileOrderIndex += 1;
-            var test = null;
-
-            $.ajax( {
-                method: 'GET',
-                beforeSend: function(request) {
-                  request.setRequestHeader('Authorization', 'Client-ID 5dc6065411ee2ab');
-                },
-                url: 'https://api.imgur.com/3/image/' + `${image.id}`,
-                async: false
-            }).done(function (msg) {
-                if(msg['data']['description'] != ""){
-                    zip.file(meta_filename, msg['data']['description']);
-                }
-            });
-
-
+            
             xhr.onreadystatechange = function (e) {
                 if (this.readyState == 4 && this.status == 200) {
                     zip.file(filename, this.response);
@@ -90,6 +76,22 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
                 }
             };
             xhr.send();
+
+            if(downloadDescription){
+                xhr = new XMLHttpRequest();
+                xhr.open('GET', `https://api.imgur.com/3/image/${image.id}`, true);
+                xhr.setRequestHeader('Authorization', 'Client-ID 5dc6065411ee2ab');
+                xhr.onreadystatechange = function (e) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var data = JSON.parse(this.responseText);
+
+                        if (data['data']['description'] != "") {
+                            zip.file(meta_filename, data['data']['description']);
+                        }
+                    }
+                };
+                xhr.send();
+            }
         });
     };
 }
