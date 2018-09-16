@@ -55,7 +55,23 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
             xhr.open('GET', `https://i.imgur.com/${image.id}.${type}`, true);
             xhr.responseType = 'arraybuffer';
             var filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.${type}`
+            var meta_filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.txt`;
             $scope.fileOrderIndex += 1;
+            var test = null;
+
+            $.ajax( {
+                method: 'GET',
+                beforeSend: function(request) {
+                  request.setRequestHeader('Authorization', 'Client-ID 5dc6065411ee2ab');
+                },
+                url: 'https://api.imgur.com/3/image/' + `${image.id}`,
+                async: false
+            }).done(function (msg) {
+                if(msg['data']['description'] != ""){
+                    zip.file(meta_filename, msg['data']['description']);
+                }
+            });
+
 
             xhr.onreadystatechange = function (e) {
                 if (this.readyState == 4 && this.status == 200) {
