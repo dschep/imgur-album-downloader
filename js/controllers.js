@@ -80,13 +80,12 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
             if(downloadDescription){
                 xhr = new XMLHttpRequest();
                 xhr.open('GET', `https://api.imgur.com/3/image/${image.id}`, true);
+                xhr.responseType = 'json';
                 xhr.setRequestHeader('Authorization', 'Client-ID 5dc6065411ee2ab');
                 xhr.onreadystatechange = function (e) {
                     if (this.readyState == 4 && this.status == 200) {
-                        var data = JSON.parse(this.responseText);
-
-                        if (data['data']['description'] != "") {
-                            zip.file(meta_filename, data['data']['description']);
+                        if (this.response['data']['description'] != null) {
+                            zip.file(meta_filename, String(this.response['data']['description']));
                         }
                     }
                 };
