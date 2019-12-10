@@ -47,6 +47,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
         $scope.downloaded = 0;
         $scope.fileOrderIndex = 0;
         var preserveOrder = $scope.preserveFileOrder; //stop mid download checkbox change from screwing up file order
+        var downloadDescription = $scope.downloadDescription; //stop mid download checkbox change from screwing up description download
         var zip = new JSZip();
 
         $scope.to_download.forEach(function (image) {
@@ -55,8 +56,9 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
             xhr.open('GET', `https://i.imgur.com/${image.id}.${type}`, true);
             xhr.responseType = 'arraybuffer';
             var filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.${type}`
+            var meta_filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.txt`;
             $scope.fileOrderIndex += 1;
-
+            
             xhr.onreadystatechange = function (e) {
                 if (this.readyState == 4 && this.status == 200) {
                     zip.file(filename, this.response);
@@ -74,6 +76,21 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
                 }
             };
             xhr.send();
+
+            if(downloadDescription){
+                xhr = new XMLHttpRequest();
+                xhr.open('GET', `https://api.imgur.com/3/image/${image.id}`, true);
+                xhr.responseType = 'json';
+                xhr.setRequestHeader('Authorization', 'Client-ID 5dc6065411ee2ab');
+                xhr.onreadystatechange = function (e) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        if (this.response['data']['description'] != null) {
+                            zip.file(meta_filename, String(this.response['data']['description']));
+                        }
+                    }
+                };
+                xhr.send();
+            }
         });
     };
 }
