@@ -48,7 +48,7 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
         $scope.fileOrderIndex = 0;
         var preserveOrder = $scope.preserveFileOrder; //stop mid download checkbox change from screwing up file order
         var zip = new JSZip();
-        var orderPadLen = $scope.to_download.toString().length;
+        var orderPadLen = $scope.to_download.length;
 
         $scope.to_download.forEach(function (image) {
             var xhr = new XMLHttpRequest();
