@@ -48,13 +48,19 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
         $scope.fileOrderIndex = 0;
         var preserveOrder = $scope.preserveFileOrder; //stop mid download checkbox change from screwing up file order
         var zip = new JSZip();
+        var orderPadLen = $scope.to_download.toString().length;
 
         $scope.to_download.forEach(function (image) {
             var xhr = new XMLHttpRequest();
             const type = image.type.split('/')[1];
             xhr.open('GET', `https://i.imgur.com/${image.id}.${type}`, true);
             xhr.responseType = 'arraybuffer';
-            var filename = (preserveOrder ? $scope.fileOrderIndex + `_` : ``) + `${image.id}.${type}`
+var filename =
+              (preserveOrder
+                ? $scope.fileOrderIndex.toString().padStart(orderPadLen, '0') +
+                  `_`
+                : ``) + `${image.id}.${type}`;
+
             $scope.fileOrderIndex += 1;
 
             xhr.onreadystatechange = function (e) {
