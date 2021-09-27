@@ -47,19 +47,21 @@ function AlbumCtrl($scope, $routeParams, $http, $location, $window) {
         $scope.downloaded = 0;
         $scope.fileOrderIndex = 0;
         var preserveOrder = $scope.preserveFileOrder; //stop mid download checkbox change from screwing up file order
+        var preferTitle = $scope.preferTitle; //stop mid download checkbox change from screwing up file order
         var zip = new JSZip();
         var orderPadLen = $scope.to_download.length.toString().length;
 
         $scope.to_download.forEach(function (image) {
             var xhr = new XMLHttpRequest();
             const type = image.type.split('/')[1];
+            const name = ((preferTitle ? image.title : image.id) || image.id).trim();
             xhr.open('GET', `https://i.imgur.com/${image.id}.${type}`, true);
             xhr.responseType = 'arraybuffer';
-var filename =
+            var filename =
               (preserveOrder
                 ? $scope.fileOrderIndex.toString().padStart(orderPadLen, '0') +
                   `_`
-                : ``) + `${image.id}.${type}`;
+                : ``) + `${name}.${type}`;
 
             $scope.fileOrderIndex += 1;
 
