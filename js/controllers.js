@@ -93,7 +93,7 @@ function LandingCtrl($scope, $location, $window) {
 
     $('#bookmarklet')
         .attr('href', 'javascript:' +
-        "location.href=location.pathname.replace(/.*\\/gallery\\//,'" +
+        "location.href=location.pathname.replace(/.*\\/a\\//,'" +
         location + "')")
         .bookmarkletHelperArrow({
             color: '#85bf25',
